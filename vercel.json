@@ -2,12 +2,25 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "framework": null,
   "buildCommand": "npm run build",
-  "outputDirectory": ".",
+  "outputDirectory": "public",
+  "proxy": {
+    "entrypoint": "proxy.js"
+  },
   "rewrites": [
-    { "source": "/((?!assets/|data/|fonts/|api/|favicon\\.ico).*)", "destination": "/index.html" }
+    { "source": "/((?!assets/|data/|fonts/|api/|auth(?:/|$)|favicon\\.ico).*)", "destination": "/index.html" }
   ],
   "headers": [
-    { "source": "/data/blobs/(.*)", "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }] },
-    { "source": "/data/manifest.json", "headers": [{ "key": "Cache-Control", "value": "public, max-age=0, must-revalidate" }] }
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "private, no-store" },
+        { "key": "CDN-Cache-Control", "value": "no-store" },
+        { "key": "Vercel-CDN-Cache-Control", "value": "no-store" },
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "Referrer-Policy", "value": "no-referrer" },
+        { "key": "X-Frame-Options", "value": "DENY" },
+        { "key": "X-Robots-Tag", "value": "noindex, nofollow, noarchive" }
+      ]
+    }
   ]
 }

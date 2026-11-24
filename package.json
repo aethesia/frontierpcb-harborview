@@ -3,9 +3,16 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
+  "engines": {
+    "node": "22.x"
+  },
   "scripts": {
     "start": "node preview.mjs",
     "preview": "node preview.mjs",
-    "build": "node validate.mjs"
+    "build": "node scripts/build.mjs",
+    "test": "node --test"
+  },
+  "dependencies": {
+    "@vercel/functions": "3.11.3"
   }
 }
